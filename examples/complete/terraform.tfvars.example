@@ -1,0 +1,25 @@
+# ============================================================================
+# EXAMPLE TERRAFORM VARIABLES
+# ============================================================================
+# Copy this file to terraform.tfvars and update with your values.
+# IMPORTANT: Never commit terraform.tfvars with real email addresses to git!
+
+region = "us-east-1"
+
+# Organization Configuration
+organization_name  = "my-company"
+stage_ou_name      = "Stage"
+production_ou_name = "Production"
+
+# Stage Account Configuration
+create_stage_account = true
+stage_account_name   = "Stage"
+stage_account_email  = "aws-stage@your-domain.com" # Must be globally unique!
+
+# Production Account Configuration
+create_prod_account = true
+prod_account_name   = "Production"
+prod_account_email  = "aws-prod@your-domain.com" # Must be globally unique!
+
+# IAM Identity Center
+create_account_assignments = true
