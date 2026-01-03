@@ -14,9 +14,9 @@ This repository provides a modular, enterprise-grade solution for bootstrapping 
 ## Architecture
 
 ```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                         AWS Organization (Root)                            │
-│                                                                            │
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         AWS Organization (Root)                             │
+│                                                                             │
 │  ┌─────────────────────────────┐    ┌─────────────────────────────┐        │
 │  │       Stage OU              │    │      Production OU          │        │
 │  │                             │    │                             │        │
@@ -28,17 +28,17 @@ This repository provides a modular, enterprise-grade solution for bootstrapping 
 │  │  │  - CI/CD pipelines    │  │    │  │  - High availability  │  │        │
 │  │  └───────────────────────┘  │    │  └───────────────────────┘  │        │
 │  └─────────────────────────────┘    └─────────────────────────────┘        │
-│                                                                            │
+│                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │                    IAM Identity Center (SSO)                        │   │
-│  │                                                                     │   │
-│  │   Permission Sets:           Groups:                                │   │
+│  │                    IAM Identity Center (SSO)                         │   │
+│  │                                                                      │   │
+│  │   Permission Sets:           Groups:                                 │   │
 │  │   ├── OrganizationAdmin      ├── OrgAdmin                           │   │
 │  │   ├── Admin                  ├── StageAdmin / ProdAdmin             │   │
 │  │   ├── PowerUser              ├── StagePowerUser / ProdPowerUser     │   │
 │  │   └── ReadOnly               └── StageReadOnly / ProdReadOnly       │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
-└────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Modules
@@ -236,6 +236,41 @@ aws identitystore create-group-membership \
 | terraform | >= 1.0 |
 | aws | ~> 5.0 |
 | time | ~> 0.9 |
+
+## Versioning
+
+This module follows [Semantic Versioning](https://semver.org/). To use a specific version:
+
+```hcl
+module "organization" {
+  source = "git::https://github.com/YOUR_USERNAME/terraform-aws-organization.git?ref=v1.0.0"
+  # ...
+}
+
+# Or use a specific module
+module "identity_center" {
+  source = "git::https://github.com/YOUR_USERNAME/terraform-aws-organization.git//modules/identity-center?ref=v1.0.0"
+  # ...
+}
+```
+
+### Version Pinning (Recommended)
+
+Always pin to a specific version in production:
+
+| Method | Example | Use Case |
+|--------|---------|----------|
+| Exact version | `?ref=v1.0.0` | Production (recommended) |
+| Minor version | `?ref=v1.0` | Auto-patch updates |
+| Branch | `?ref=main` | Development only |
+
+### Creating Releases
+
+```bash
+# Tag a new release
+git tag -a v1.0.0 -m "Initial release"
+git push origin v1.0.0
+```
 
 ## License
 
